@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api_Macoratti.Context;
+using Api_Macoratti.Filters;
 using Api_Macoratti.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace Api_Macoratti.Controllers
         }
         // [HttpGet("/primeiro")] -> se eu usar a barra "/" , vai ignorar a route api/[controller]
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
         {
             return await _context.Produtos.AsNoTracking().ToListAsync(); // usar o banco de dados justifica o uso de assíncrono

@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using Api_Macoratti.Context;
 using Api_Macoratti.Services;
 using Api_Macoratti.Models;
+using Microsoft.AspNetCore.Http;
+using Api_Macoratti.Filters;
 
 namespace Api_Macoratti
 {
@@ -30,6 +32,7 @@ namespace Api_Macoratti
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ApiLoggingFilter>();
             services.AddDbContext<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IMeuServico, MeuServico>();
@@ -47,12 +50,13 @@ namespace Api_Macoratti
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            // adiciona o middleware para redirecionar para https
             app.UseHttpsRedirection();
 
             // adiciona o middleware de roteamento
             app.UseRouting();
 
+            // adiciona o middleware que habilita a autorização
             app.UseAuthorization();
 
             // adiciona o middleware que executa o endpoint do request atual
@@ -60,6 +64,11 @@ namespace Api_Macoratti
             {
                 // adiciona os endpoints para as actions dos controladores sem especificar rotas
                 endpoints.MapControllers();
+            });
+
+            // middleware personalizado
+            app.Run(async (context) => {
+                await context.Response.WriteAsync("Middleware final");
             });
         }
     }

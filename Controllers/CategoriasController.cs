@@ -22,6 +22,13 @@ namespace Api_Macoratti.Controllers
             _context = contexto;
             _configuration = config;
         }
+        [HttpGet("autora")]
+        public string GetAutora()
+        {
+            var autora = _configuration["autora"];
+            var conexao = _configuration["ConnectionStrings:DefaultConnection"];
+            return $"Autora: { autora } Conexao: { conexao }";
+        }
         [HttpGet("saudacao/{nome}")]
         public ActionResult<string> GetSaudacao([FromServices] IMeuServico meuServico, string nome)
         {
