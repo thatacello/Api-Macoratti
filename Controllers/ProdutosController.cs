@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Api_Macoratti.Context;
 using Api_Macoratti.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,15 @@ namespace Api_Macoratti.Controllers
         {
             _context = contexto;
         }
+        // [HttpGet("/primeiro")] -> se eu usar a barra "/" , vai ignorar a route api/[controller]
         [HttpGet]
-        public ActionResult<IEnumerable<Produto>> Get()
+        public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
         {
-            return _context.Produtos.AsNoTracking().ToList();
+            return await _context.Produtos.AsNoTracking().ToListAsync(); // usar o banco de dados justifica o uso de assíncrono
         }
-        [HttpGet("{id}", Name ="ObterProduto")]
-        public ActionResult<Produto> Get(int id)
+        // [HttpGet("{valor:alpha:length(5)}")] restrição -> aceita somente valores alfanuméricos com tamanho de 5
+        [HttpGet("{id:int:min(1)}", Name ="ObterProduto")] // restrição -> o valor mínimo do id será 1
+        public ActionResult<Produto> Get(int id) // com retorno ActionResult<T>
         {
             var produto = _context.Produtos.AsNoTracking().FirstOrDefault(p => p.ProdutoId == id);
             if(produto == null)
@@ -32,10 +35,21 @@ namespace Api_Macoratti.Controllers
             }
             return produto;
         }
+        // com retorno IActionResult
+        // [HttpGet]
+        // public IActionResult Get()
+        // {
+        //     var produto = _context.Produtos.FirstOrDefault();
+        //     if(produto == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return Ok(produto);
+        // }
         [HttpPost]
         public ActionResult Post([FromBody]Produto produto)
         {
-            // isso é feito automaticamente
+            // isso é feito automaticamente devido ao [ApiController]
             // if(!ModelState.IsValid)
             // {
             //     return BadRequest(ModelState);

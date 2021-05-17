@@ -9,3 +9,7 @@
 ## Postman
 
 - Simula um cliente usando minha aplicação
+
+## query string
+
+- inicia no ponto de interrogação

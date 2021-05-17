@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Api_Macoratti.Context;
+using Api_Macoratti.Services;
+using Api_Macoratti.Models;
 
 namespace Api_Macoratti
 {
@@ -30,6 +32,8 @@ namespace Api_Macoratti
         {
             services.AddDbContext<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddTransient<IMeuServico, MeuServico>();
+
             services.AddControllers().AddNewtonsoftJson(options => {
                 options.SerializerSettings.ReferenceLoopHandling = 
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
@@ -46,12 +50,15 @@ namespace Api_Macoratti
 
             app.UseHttpsRedirection();
 
+            // adiciona o middleware de roteamento
             app.UseRouting();
 
             app.UseAuthorization();
 
+            // adiciona o middleware que executa o endpoint do request atual
             app.UseEndpoints(endpoints =>
             {
+                // adiciona os endpoints para as actions dos controladores sem especificar rotas
                 endpoints.MapControllers();
             });
         }
