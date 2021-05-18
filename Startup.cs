@@ -17,6 +17,8 @@ using Api_Macoratti.Services;
 using Api_Macoratti.Models;
 using Microsoft.AspNetCore.Http;
 using Api_Macoratti.Filters;
+using Api_Macoratti.Extensions;
+using Api_Macoratti.Logging;
 
 namespace Api_Macoratti
 {
@@ -44,12 +46,19 @@ namespace Api_Macoratti
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            loggerFactory.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+            {
+                LogLevel = LogLevel.Information
+            }));
+            // adiciona middleware de tratamento de erros
+            app.ConfigureExceptionHandler();
+
             // adiciona o middleware para redirecionar para https
             app.UseHttpsRedirection();
 
