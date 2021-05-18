@@ -19,6 +19,9 @@ using Microsoft.AspNetCore.Http;
 using Api_Macoratti.Filters;
 using Api_Macoratti.Extensions;
 using Api_Macoratti.Logging;
+using Api_Macoratti.Repository;
+using AutoMapper;
+using Api_Macoratti.DTOs.Mappings;
 
 namespace Api_Macoratti
 {
@@ -34,6 +37,14 @@ namespace Api_Macoratti
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var mappingConfig = new MapperConfiguration(mc => 
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ApiLoggingFilter>();
             services.AddDbContext<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -78,6 +89,20 @@ namespace Api_Macoratti
             // middleware personalizado
             app.Run(async (context) => {
                 await context.Response.WriteAsync("Middleware final");
+            });
+
+            // gera arquivo json
+            app.UseSwagger();
+
+            // modifica a rota do swagger
+            // app.UseSwagger(config => {
+            //     config.RouteTemplate = "thais/{documentName}/swagger.json";
+            // });
+
+            // define o local onde a documentação irá ficar -> vews html do swagger
+            app.UseSwaggerUI(config => {
+                // config.SwaggerEndpoint("/thais/v1/swagger.json", "estudo api v1"); // -> swagger com a rota modificada
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "estudo api v1");
             });
         }
     }

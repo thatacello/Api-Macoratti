@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Api_Macoratti.Context;
+using Api_Macoratti.DTOs;
 using Api_Macoratti.Models;
+using Api_Macoratti.Repository;
 using Api_Macoratti.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +19,16 @@ namespace Api_Macoratti.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _uof;
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
-        public CategoriasController(AppDbContext contexto, IConfiguration config, ILogger<CategoriasController> logger)
+        private readonly IMapper _mapper;
+        public CategoriasController(IUnitOfWork uof, IConfiguration config, ILogger<CategoriasController> logger, IMapper mapper)
         {
-            _context = contexto;
+            _uof = uof;
             _configuration = config;
             _logger = logger;
+            _mapper = mapper;
         }
         [HttpGet("autora")]
         public string GetAutora()
@@ -38,17 +43,25 @@ namespace Api_Macoratti.Controllers
             return meuServico.Saudacao(nome);
         }
         [HttpGet("produtos")]
-        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
+        public ActionResult<IEnumerable<CategoriaDTO>> GetCategoriasProdutos()
         {
             _logger.LogInformation("============ GET api/categorias/produtos ==============");
-            return _context.Categorias.Include(x => x.Produtos).ToList();
+            var categorias = _uof.CategoriaRepository.GetCategoriasProdutos().ToList();
+            var categoriasDto = _mapper.Map<List<CategoriaDTO>>(categorias);
+
+            return categoriasDto;
+            // return _uof.CategoriaRepository.GetCategoriasProdutos().ToList();
         }
         [HttpGet]
-        public ActionResult<IEnumerable<Categoria>> Get()
+        public ActionResult<IEnumerable<CategoriaDTO>> Get()
         {
             try
             {
-                return _context.Categorias.AsNoTracking().ToList();
+                var categorias = _uof.CategoriaRepository.Get().ToList();
+                var categoriasDto = _mapper.Map<List<CategoriaDTO>>(categorias);
+
+                return categoriasDto;
+                // return _uof.CategoriaRepository.Get().ToList();
             }
             catch(System.Exception)
             {
@@ -57,16 +70,18 @@ namespace Api_Macoratti.Controllers
             
         }
         [HttpGet("{id}", Name = "ObterCategoria")]
-        public ActionResult<Categoria> Get(int id)
+        public ActionResult<CategoriaDTO> Get(int id)
         {
             try
             {
-                var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(p => p.CategoriaId == id);
+                var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
                 if(categoria == null)
                 {
                     return NotFound($"A categoria com id={id} não foi encontrada");
                 }
-                return categoria;
+
+                var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
+                return categoriaDto;
             }
             catch(Exception)
             {
@@ -74,12 +89,16 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Post([FromBody] Categoria categoria)
+        public ActionResult Post([FromBody] CategoriaDTO categoriaDto)
         {
             try 
             {
-                _context.Categorias.Add(categoria);
-                _context.SaveChanges();
+                var categoria = _mapper.Map<Categoria>(categoriaDto);
+
+                _uof.CategoriaRepository.Add(categoria);
+                _uof.Commit();
+
+                var categoriaDTO = _mapper.Map<CategoriaDTO>(categoria);
 
                 return new CreatedAtRouteResult("ObterCategoria", new { id = categoria.CategoriaId }, categoria);
             }
@@ -89,16 +108,19 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Categoria categoria)
+        public ActionResult Put(int id, [FromBody] CategoriaDTO categoriaDto)
         {
             try
             {
-                if(id != categoria.CategoriaId)
+                if(id != categoriaDto.CategoriaId)
                 {
                     return BadRequest($"Não foi possível atualizar a categoria com id={id}");
                 }
-                _context.Entry(categoria).State = EntityState.Modified;
-                _context.SaveChanges();
+                var categoria = _mapper.Map<Categoria>(categoriaDto);
+
+                _uof.CategoriaRepository.Update(categoria);
+                _uof.Commit();
+
                 return Ok($"Categoria com id={id} foi atualizada com sucesso");
             }
             catch(Exception)
@@ -107,18 +129,20 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public ActionResult<Categoria> Delete(int id)
+        public ActionResult<CategoriaDTO> Delete(int id)
         {
             try
             {
-                var categoria = _context.Categorias.FirstOrDefault(p => p.CategoriaId == id);
+                var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
                 if(categoria == null)
                 {
                     return NotFound($"A categoria com id = {id} não foi encontrada");
                 }
-                _context.Categorias.Remove(categoria);
-                _context.SaveChanges();
-                return categoria;
+                _uof.CategoriaRepository.Delete(categoria);
+                _uof.Commit();
+                var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
+
+                return categoriaDto;
             }
             catch(Exception)
             {

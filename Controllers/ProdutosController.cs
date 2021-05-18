@@ -1,12 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Api_Macoratti.Context;
+using Api_Macoratti.DTOs;
 using Api_Macoratti.Filters;
 using Api_Macoratti.Models;
+using Api_Macoratti.Pagination;
+using Api_Macoratti.Repository;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api_Macoratti.Controllers
 {
@@ -14,34 +14,61 @@ namespace Api_Macoratti.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        public ProdutosController(AppDbContext contexto)
+        private readonly IUnitOfWork _uof;
+        private readonly IMapper _mapper;
+        public ProdutosController(IUnitOfWork uof, IMapper mapper)
         {
-            _context = contexto;
+            _uof = uof;
+            _mapper = mapper;
+        }
+        [HttpGet("menorpreco")]
+        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPrecos()
+        {
+            var produtos = _uof.ProdutoRepository.GetProdutosPorPreco().ToList();
+            var produtosDto = _mapper.Map<List<ProdutoDTO>>(produtos);
+
+            return produtosDto;
         }
         // [HttpGet("/primeiro")] -> se eu usar a barra "/" , vai ignorar a route api/[controller]
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
-        public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
+        public ActionResult<IEnumerable<ProdutoDTO>> Get([FromQuery] ProdutosParameters produtosParameters)
         {
-            return await _context.Produtos.AsNoTracking().ToListAsync(); // usar o banco de dados justifica o uso de assíncrono
+            // para ver a paginação, digitar a querry string "?pageNumber=1&pageSize=2"
+            // https://localhost:5001/api/produtos?pageNumber=1&pageSize=4
+            var produtos = _uof.ProdutoRepository.GetProdutos(produtosParameters).ToList(); // usar o banco de dados justifica o uso de métodos assíncronos
+            var produtosDto = _mapper.Map<List<ProdutoDTO>>(produtos);
+
+            return produtosDto;
         }
         // [HttpGet("{valor:alpha:length(5)}")] restrição -> aceita somente valores alfanuméricos com tamanho de 5
         [HttpGet("{id:int:min(1)}", Name ="ObterProduto")] // restrição -> o valor mínimo do id será 1
-        public ActionResult<Produto> Get(int id) // com retorno ActionResult<T>
+        public ActionResult<ProdutoDTO> Get(int id) // com retorno ActionResult<T>
         {
-            var produto = _context.Produtos.AsNoTracking().FirstOrDefault(p => p.ProdutoId == id);
+            var produto = _uof.ProdutoRepository.GetById(p => p.ProdutoId == id);
             if(produto == null)
             {
                 return NotFound();
             }
-            return produto;
+            var produtoDto = _mapper.Map<ProdutoDTO>(produto);
+            return produtoDto;
+
+            // para evitar fazer todo esse código abaixo, usamos o AutoMapper
+            // return new ProdutoDTO
+            // {
+            //     ProdutoId = produto.ProdutoId,
+            //     Nome = produto.Nome,
+            //     Preco = produto.Preco,
+            //     ImagemUrl = produto.ImagemUrl,
+            //     Descricao = produto.Descricao,
+            //     CategoriaId = produto.CategoriaId
+            // };
         }
         // com retorno IActionResult
         // [HttpGet]
         // public IActionResult Get()
         // {
-        //     var produto = _context.Produtos.FirstOrDefault();
+        //     var produto = _uof.Produtos.FirstOrDefault();
         //     if(produto == null)
         //     {
         //         return NotFound();
@@ -49,40 +76,48 @@ namespace Api_Macoratti.Controllers
         //     return Ok(produto);
         // }
         [HttpPost]
-        public ActionResult Post([FromBody]Produto produto)
+        public ActionResult Post([FromBody]ProdutoDTO produtoDto)
         {
             // isso é feito automaticamente devido ao [ApiController]
             // if(!ModelState.IsValid)
             // {
             //     return BadRequest(ModelState);
             // }
-            _context.Produtos.Add(produto);
-            _context.SaveChanges();
+            var produto = _mapper.Map<Produto>(produtoDto);
 
-            return new CreatedAtRouteResult("ObterProduto", new { id = produto.ProdutoId }, produto);
+            _uof.ProdutoRepository.Add(produto);
+            _uof.Commit();
+
+            var produtoDTO = _mapper.Map<ProdutoDTO>(produto);
+
+            return new CreatedAtRouteResult("ObterProduto", new { id = produto.ProdutoId }, produtoDTO);
         }
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Produto produto)
+        public ActionResult Put(int id, [FromBody] ProdutoDTO produtoDto)
         {
-            if(id != produto.ProdutoId)
+            if(id != produtoDto.ProdutoId)
             {
                 return BadRequest();
             }
-            _context.Entry(produto).State = EntityState.Modified;
-            _context.SaveChanges();
+            var produto = _mapper.Map<Produto>(produtoDto);
+
+            _uof.ProdutoRepository.Update(produto);
+            _uof.Commit();
             return Ok();
         }
         [HttpDelete("{id}")]
-        public ActionResult<Produto> Delete(int id)
+        public ActionResult<ProdutoDTO> Delete(int id)
         {
-            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            var produto = _uof.ProdutoRepository.GetById(p => p.ProdutoId == id);
             if(produto == null)
             {
                 return NotFound();
             }
-            _context.Produtos.Remove(produto);
-            _context.SaveChanges();
-            return produto;
+            _uof.ProdutoRepository.Delete(produto);
+            _uof.Commit();
+            var produtoDto = _mapper.Map<ProdutoDTO>(produto);
+
+            return produtoDto;
         }
     }
 }

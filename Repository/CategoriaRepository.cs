@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Api_Macoratti.Context;
 using Api_Macoratti.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace Api_Macoratti.Repository
 
         public IEnumerable<Categoria> GetCategoriasProdutos()
         {
-            return Get().Include(x => x.Produtos);
+            return Get().Include(x => x.Produtos).ToList();
         }
     }
 }
