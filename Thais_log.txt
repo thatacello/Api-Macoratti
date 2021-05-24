@@ -217,3 +217,126 @@ Information: 0 - ### Executando -> OnActionExecuted
 Information: 0 - ####################################
 Information: 0 - 15:00:39
 Information: 0 - ####################################
+Information: 0 - Application is shutting down...
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 16:52:40
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 16:52:43
+Information: 0 - ####################################
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 16:53:47
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 16:53:49
+Information: 0 - ####################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 16:54:10
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 16:54:10
+Information: 0 - ####################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 16:54:22
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 16:54:22
+Information: 0 - ####################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 16:54:27
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 16:54:27
+Information: 0 - ####################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 16:54:31
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 16:54:31
+Information: 0 - ####################################
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - Now listening on: https://localhost:5001
+Information: 0 - Now listening on: http://localhost:5000
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 19:06:51
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 19:06:51
+Information: 0 - ####################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ####################################
+Information: 0 - 19:07:33
+Information: 0 - ModelState: True
+Information: 0 - ###################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################
+Information: 0 - 19:07:33
+Information: 0 - ####################################

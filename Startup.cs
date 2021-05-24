@@ -90,20 +90,6 @@ namespace Api_Macoratti
             app.Run(async (context) => {
                 await context.Response.WriteAsync("Middleware final");
             });
-
-            // gera arquivo json
-            app.UseSwagger();
-
-            // modifica a rota do swagger
-            // app.UseSwagger(config => {
-            //     config.RouteTemplate = "thais/{documentName}/swagger.json";
-            // });
-
-            // define o local onde a documentação irá ficar -> vews html do swagger
-            app.UseSwaggerUI(config => {
-                // config.SwaggerEndpoint("/thais/v1/swagger.json", "estudo api v1"); // -> swagger com a rota modificada
-                config.SwaggerEndpoint("/swagger/v1/swagger.json", "estudo api v1");
-            });
         }
     }
 }

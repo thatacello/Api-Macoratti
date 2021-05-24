@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Api_Macoratti.Context;
 using Api_Macoratti.DTOs;
 using Api_Macoratti.Models;
+using Api_Macoratti.Pagination;
 using Api_Macoratti.Repository;
 using Api_Macoratti.Services;
 using AutoMapper;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Api_Macoratti.Controllers
 {
@@ -43,21 +46,34 @@ namespace Api_Macoratti.Controllers
             return meuServico.Saudacao(nome);
         }
         [HttpGet("produtos")]
-        public ActionResult<IEnumerable<CategoriaDTO>> GetCategoriasProdutos()
+        public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriasProdutos()
         {
             _logger.LogInformation("============ GET api/categorias/produtos ==============");
-            var categorias = _uof.CategoriaRepository.GetCategoriasProdutos().ToList();
+            var categorias = await _uof.CategoriaRepository.GetCategoriasProdutos();
             var categoriasDto = _mapper.Map<List<CategoriaDTO>>(categorias);
 
             return categoriasDto;
             // return _uof.CategoriaRepository.GetCategoriasProdutos().ToList();
         }
         [HttpGet]
-        public ActionResult<IEnumerable<CategoriaDTO>> Get()
+        public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get([FromQuery] CategoriasParameters categoriasParameters)
         {
             try
             {
-                var categorias = _uof.CategoriaRepository.Get().ToList();
+                var categorias = await _uof.CategoriaRepository.GetCategorias(categoriasParameters);
+
+                var metadata = new 
+                {
+                    categorias.TotalCount,
+                    categorias.PageSize,
+                    categorias.CurrentPage,
+                    categorias.TotalPages,
+                    categorias.HasNext,
+                    categorias.HasPrevious
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata)); // inclui no header
+
                 var categoriasDto = _mapper.Map<List<CategoriaDTO>>(categorias);
 
                 return categoriasDto;
@@ -70,14 +86,15 @@ namespace Api_Macoratti.Controllers
             
         }
         [HttpGet("{id}", Name = "ObterCategoria")]
-        public ActionResult<CategoriaDTO> Get(int id)
+        public async Task<ActionResult<CategoriaDTO>> Get(int id)
         {
             try
             {
-                var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
+                var categoria = await _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
+
                 if(categoria == null)
                 {
-                    return NotFound($"A categoria com id={id} não foi encontrada");
+                    return NotFound($"A categoria com id = {id} não foi encontrada");
                 }
 
                 var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
@@ -89,14 +106,14 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Post([FromBody] CategoriaDTO categoriaDto)
+        public async Task<ActionResult> Post([FromBody] CategoriaDTO categoriaDto)
         {
             try 
             {
                 var categoria = _mapper.Map<Categoria>(categoriaDto);
 
                 _uof.CategoriaRepository.Add(categoria);
-                _uof.Commit();
+                await _uof.Commit();
 
                 var categoriaDTO = _mapper.Map<CategoriaDTO>(categoria);
 
@@ -108,7 +125,7 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] CategoriaDTO categoriaDto)
+        public async Task<ActionResult> Put(int id, [FromBody] CategoriaDTO categoriaDto)
         {
             try
             {
@@ -119,7 +136,7 @@ namespace Api_Macoratti.Controllers
                 var categoria = _mapper.Map<Categoria>(categoriaDto);
 
                 _uof.CategoriaRepository.Update(categoria);
-                _uof.Commit();
+                await _uof.Commit();
 
                 return Ok($"Categoria com id={id} foi atualizada com sucesso");
             }
@@ -129,17 +146,17 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public ActionResult<CategoriaDTO> Delete(int id)
+        public async Task<ActionResult<CategoriaDTO>> Delete(int id)
         {
             try
             {
-                var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
+                var categoria = await _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
                 if(categoria == null)
                 {
                     return NotFound($"A categoria com id = {id} não foi encontrada");
                 }
                 _uof.CategoriaRepository.Delete(categoria);
-                _uof.Commit();
+                await _uof.Commit();
                 var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
 
                 return categoriaDto;

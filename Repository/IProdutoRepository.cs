@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Api_Macoratti.Models;
 using Api_Macoratti.Pagination;
 
@@ -6,7 +7,7 @@ namespace Api_Macoratti.Repository
 {
     public interface IProdutoRepository : IRepository<Produto>
     {
-        IEnumerable<Produto> GetProdutos(ProdutosParameters produtosParameters);
-         IEnumerable<Produto> GetProdutosPorPreco();
+        Task<PagedList<Produto>> GetProdutos(ProdutosParameters produtosParameters);
+        Task<IEnumerable<Produto>> GetProdutosPorPreco();
     }
 }
