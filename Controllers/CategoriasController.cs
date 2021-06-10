@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Api_Macoratti.Context;
 using Api_Macoratti.DTOs;
 using Api_Macoratti.Models;
 using Api_Macoratti.Pagination;
@@ -11,15 +9,18 @@ using Api_Macoratti.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Api_Macoratti.Controllers
 {
+    // [Authorize(AuthenticationSchemes = "Bearer")] // define esquema de autenticação -> retorna 401 se o usuário nao estiver autenticado
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("PermitirApiRequest")]
     public class CategoriasController : ControllerBase
     {
         private readonly IUnitOfWork _uof;
