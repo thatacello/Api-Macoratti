@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Api Macoratti</name>
+    </assembly>
+    <members>
+        <member name="M:Api_Macoratti.Controllers.AutorizaController.RegisterUser(Api_Macoratti.DTOs.UsuarioDTO)">
+            <summary>
+            Registra um novo usuário
+            </summary>
+            <param name="model">Um objeto UsuarioDTO</param>
+            <returns>Status 200 e o token para o cliente</returns>
+        </member>
+        <member name="M:Api_Macoratti.Controllers.AutorizaController.Login(Api_Macoratti.DTOs.UsuarioDTO)">
+            <summary>
+            Verifica as credenciais de um usuário
+            </summary>
+            <param name="userInfo">Um objeto do tipo UsuarioDTO</param>
+            <returns>Status 200 e o token para o cliente</returns>
+            <remarks>retorna o Status 200 e o token para o novo</remarks>
+        </member>
+        <member name="M:Api_Macoratti.Controllers.CategoriasController.Get(System.Int32)">
+            <summary>
+            Obtem um categoria pelo seu Id
+            </summary>
+            <param name="id"></param>
+            <returns>Objetos Categoria</returns>
+        </member>
+        <member name="M:Api_Macoratti.Controllers.CategoriasController.Post(Api_Macoratti.DTOs.CategoriaDTO)">
+             <summary>
+             Obtem um categoria pelo seu Id
+             </summary>
+             <remarks>
+             Exemplo de request:
+            
+             POST api/categorias
+             {
+                 "categoriaId" : 1,
+                 "nome" : "categoria1",
+                 "imagemURL" : "http:/teste.net/1.jpg"
+             }
+             </remarks>
+             <param name="categoriaDto"></param>
+             <returns>Objetos Categoria</returns>
+             <remarks>Retorna um objeto Categoria incluído</remarks>
+        </member>
+    </members>
+</doc>

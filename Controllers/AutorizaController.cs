@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Api_Macoratti.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class AutorizaController : ControllerBase
@@ -30,6 +31,11 @@ namespace Api_Macoratti.Controllers
         {
             return "AutorizaController ::Acessado em : " + DateTime.Now.ToLongDateString();
         }
+        /// <summary>
+        /// Registra um novo usuário
+        /// </summary>
+        /// <param name="model">Um objeto UsuarioDTO</param>
+        /// <returns>Status 200 e o token para o cliente</returns>
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody]UsuarioDTO model)
         {
@@ -53,6 +59,12 @@ namespace Api_Macoratti.Controllers
             await _signInManager.SignInAsync(user, false);
             return Ok(GeraToken(model));
         }
+        /// <summary>
+        /// Verifica as credenciais de um usuário
+        /// </summary>
+        /// <param name="userInfo">Um objeto do tipo UsuarioDTO</param>
+        /// <returns>Status 200 e o token para o cliente</returns>
+        /// <remarks>retorna o Status 200 e o token para o novo</remarks>
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] UsuarioDTO userInfo)
         {

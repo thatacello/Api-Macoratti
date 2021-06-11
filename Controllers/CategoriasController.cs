@@ -17,7 +17,8 @@ using Microsoft.AspNetCore.Cors;
 
 namespace Api_Macoratti.Controllers
 {
-    // [Authorize(AuthenticationSchemes = "Bearer")] // define esquema de autenticação -> retorna 401 se o usuário nao estiver autenticado
+    [Produces("application/json")]
+    [Authorize(AuthenticationSchemes = "Bearer")] // define esquema de autenticação -> retorna 401 se o usuário nao estiver autenticado
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("PermitirApiRequest")]
@@ -86,7 +87,14 @@ namespace Api_Macoratti.Controllers
             }
             
         }
+        /// <summary>
+        /// Obtem um categoria pelo seu Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Objetos Categoria</returns>
         [HttpGet("{id}", Name = "ObterCategoria")]
+        [ProducesResponseType(typeof(CategoriaDTO), StatusCodes.Status200OK)] // swagger -> padrão
+        [ProducesResponseType(StatusCodes.Status404NotFound)] // exibe NotFound no swagger
         public async Task<ActionResult<CategoriaDTO>> Get(int id)
         {
             try
@@ -106,7 +114,28 @@ namespace Api_Macoratti.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao tentar obter categorias do banco de dados");
             }
         }
+
+        // exemplo de requisição no remarks
+
+        /// <summary>
+        /// Obtem um categoria pelo seu Id
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de request:
+        ///
+        /// POST api/categorias
+        /// {
+        ///     "categoriaId" : 1,
+        ///     "nome" : "categoria1",
+        ///     "imagemURL" : "http:/teste.net/1.jpg"
+        /// }
+        /// </remarks>
+        /// <param name="categoriaDto"></param>
+        /// <returns>Objetos Categoria</returns>
+        /// <remarks>Retorna um objeto Categoria incluído</remarks>
         [HttpPost]
+        [ProducesResponseType(typeof(CategoriaDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Post([FromBody] CategoriaDTO categoriaDto)
         {
             try 
@@ -126,6 +155,7 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpPut("{id}")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))] // é uma alternativa ao ProducesResponseType acima, pois não é necessário especificar cada tipo de statuscode
         public async Task<ActionResult> Put(int id, [FromBody] CategoriaDTO categoriaDto)
         {
             try
