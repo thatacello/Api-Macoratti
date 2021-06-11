@@ -131,6 +131,8 @@ namespace Api_Macoratti
                 // };
 
                 // c.AddSecurityRequirement(security);
+
+                // register
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
                     {
