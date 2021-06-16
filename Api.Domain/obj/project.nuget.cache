@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mgmi39H6oqc0ZZ7ah0mdz8pSLHSjrjJYTMtKDAAEgAJ37ZwhWpkuaW9Khpf8G5lDCXTjw7uLi3hJMfTWb1twdQ==",
+  "dgSpecHash": "pGABFPZqvw8wUltkSG3KiJS30X+2g2dttcqbEy92bEnMuFB3gkpiWWn2kzW0YG6H5+houkPYXDX1t6HocUGEvQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api Macoratti.csproj",
+  "projectFilePath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tsci\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\tsci\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api Macoratti.csproj": {}
+    "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api Macoratti.csproj": {
+    "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api Macoratti.csproj",
+        "projectUniqueName": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj",
         "projectName": "Api Macoratti",
-        "projectPath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api Macoratti.csproj",
+        "projectPath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj",
         "packagesPath": "C:\\Users\\tsci\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\obj\\",
+        "outputPath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -112,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.409\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.410\\RuntimeIdentifierGraph.json"
         }
       }
     }
