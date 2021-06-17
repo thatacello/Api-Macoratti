@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,20 +29,20 @@ namespace Api_Macoratti.Controllers
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
-        public CategoriasController(IUnitOfWork uof, IConfiguration config, ILogger<CategoriasController> logger, IMapper mapper)
+        public CategoriasController(IUnitOfWork uof, IMapper mapper) // removidos ->  IConfiguration config, ILogger<CategoriasController> logger, 
         {
             _uof = uof;
-            _configuration = config;
-            _logger = logger;
+            // _configuration = config;
+            // _logger = logger;
             _mapper = mapper;
         }
-        [HttpGet("autora")]
-        public string GetAutora()
-        {
-            var autora = _configuration["autora"];
-            var conexao = _configuration["ConnectionStrings:DefaultConnection"];
-            return $"Autora: { autora } Conexao: { conexao }";
-        }
+        // [HttpGet("autora")]
+        // public string GetAutora()
+        // {
+        //     var autora = _configuration["autora"];
+        //     var conexao = _configuration["ConnectionStrings:DefaultConnection"];
+        //     return $"Autora: { autora } Conexao: { conexao }";
+        // }
         [HttpGet("saudacao/{nome}")]
         public ActionResult<string> GetSaudacao([FromServices] IMeuServico meuServico, string nome)
         {
@@ -87,6 +88,27 @@ namespace Api_Macoratti.Controllers
             }
             
         }
+        
+        /// <summary>
+        /// Retorna uma coleção de objetos Categoria
+        /// </summary>
+        /// <returns>Lista de Categorias</returns>
+        [HttpGet]
+        public ActionResult<IEnumerable<CategoriaDTO>> Get()
+        {
+            try
+            {
+                var categorias = _uof.CategoriaRepository.Get().AsQueryable().ToList();
+                var categoriasDto = _mapper.Map<List<CategoriaDTO>>(categorias);
+                // throw new Exception(); -> usei no teste 
+                return categoriasDto;
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }           
+        }
+
         /// <summary>
         /// Obtem um categoria pelo seu Id
         /// </summary>
@@ -95,24 +117,25 @@ namespace Api_Macoratti.Controllers
         [HttpGet("{id}", Name = "ObterCategoria")]
         [ProducesResponseType(typeof(CategoriaDTO), StatusCodes.Status200OK)] // swagger -> padrão
         [ProducesResponseType(StatusCodes.Status404NotFound)] // exibe NotFound no swagger
-        public async Task<ActionResult<CategoriaDTO>> Get(int id)
+        public ActionResult<CategoriaDTO> Get(int? id)
         {
-            try
-            {
-                var categoria = await _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
+            // try
+            // {
+                var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
 
                 if(categoria == null)
                 {
-                    return NotFound($"A categoria com id = {id} não foi encontrada");
+                    // return NotFound($"A categoria com id = {id} não foi encontrada");
+                    return NotFound();
                 }
 
                 var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
                 return categoriaDto;
-            }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao tentar obter categorias do banco de dados");
-            }
+            // }
+            // catch(Exception)
+            // {
+            //     return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao tentar obter categorias do banco de dados");
+            // }
         }
 
         // exemplo de requisição no remarks
@@ -177,7 +200,7 @@ namespace Api_Macoratti.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CategoriaDTO>> Delete(int id)
+        public async Task<ActionResult<CategoriaDTO>> Delete(int? id)
         {
             try
             {
@@ -196,6 +219,19 @@ namespace Api_Macoratti.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir a categoria com id={id}");
             }
+
+            // var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
+
+            // if (categoria == null)
+            // {
+            //     return NotFound();
+            // }
+            // _uof.CategoriaRepository.Delete(categoria);
+            // _uof.Commit();
+
+            // var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
+
+            // return categoriaDto;
         }
     }
 }

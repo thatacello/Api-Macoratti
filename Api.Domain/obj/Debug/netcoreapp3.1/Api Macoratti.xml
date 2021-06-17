@@ -19,7 +19,13 @@
             <returns>Status 200 e o token para o cliente</returns>
             <remarks>retorna o Status 200 e o token para o novo</remarks>
         </member>
-        <member name="M:Api_Macoratti.Controllers.CategoriasController.Get(System.Int32)">
+        <member name="M:Api_Macoratti.Controllers.CategoriasController.Get">
+            <summary>
+            Retorna uma coleção de objetos Categoria
+            </summary>
+            <returns>Lista de Categorias</returns>
+        </member>
+        <member name="M:Api_Macoratti.Controllers.CategoriasController.Get(System.Nullable{System.Int32})">
             <summary>
             Obtem um categoria pelo seu Id
             </summary>

@@ -6054,11 +6054,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Tests\\Api.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Tests\\Api.Tests.csproj",
       "projectName": "Api.Tests",
-      "projectPath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Tests\\Api.Tests.csproj",
+      "projectPath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Tests\\Api.Tests.csproj",
       "packagesPath": "C:\\Users\\tsci\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Tests\\obj\\",
+      "outputPath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6075,8 +6075,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {
-              "projectPath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj"
+            "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {
+              "projectPath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj"
             }
           }
         }

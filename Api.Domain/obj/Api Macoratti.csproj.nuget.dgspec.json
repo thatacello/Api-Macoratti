@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {}
+    "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {}
   },
   "projects": {
-    "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {
+    "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj",
+        "projectUniqueName": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj",
         "projectName": "Api Macoratti",
-        "projectPath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj",
+        "projectPath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\Api Macoratti.csproj",
         "packagesPath": "C:\\Users\\tsci\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\obj\\",
+        "outputPath": "C:\\Users\\tsci\\My Private Documents\\Estudos\\Udemy\\Csharp\\Api Macoratti\\Api.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
