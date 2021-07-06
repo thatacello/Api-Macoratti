@@ -66,7 +66,7 @@ namespace Api_Macoratti.Controllers
             return categoriasDto;
             // return _uof.CategoriaRepository.GetCategoriasProdutos().ToList();
         }
-        [HttpGet]
+        [HttpGet("paginacao")]
         public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get([FromQuery] CategoriasParameters categoriasParameters)
         {
             try

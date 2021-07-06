@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Api_Macoratti.Controllers
 {
-    [EnableQuery] // OData
+    // [EnableQuery] // OData
     [ApiConventionType(typeof(DefaultApiConventions))] // statuscode do swagger é aplicado para todos os métodos do controlador
     [Produces("application/json")] // muda o método de retorno do swagger para 'application/json'
     [Route("api/[controller]")]

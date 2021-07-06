@@ -47,6 +47,14 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "GraphQL": {
+              "target": "Package",
+              "version": "[3.0.0.2026, )"
+            },
+            "GraphQL.Client": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
             "Microsoft.AspNet.Mvc": {
               "target": "Package",
               "version": "[5.2.3, )"

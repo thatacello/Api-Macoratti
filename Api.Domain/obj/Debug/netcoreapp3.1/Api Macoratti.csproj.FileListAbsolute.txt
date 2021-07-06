@@ -259,3 +259,9 @@ C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain
 C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
 C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
 C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
+C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\GraphQL.dll
+C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\GraphQL-Parser.dll
+C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\System.Reactive.Core.dll
+C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\System.Reactive.Linq.dll
+C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\System.Reactive.dll
+C:\Users\tsci\My Private Documents\Estudos\Udemy\Csharp\Api Macoratti\Api.Domain\bin\Debug\netcoreapp3.1\System.Reactive.xml
