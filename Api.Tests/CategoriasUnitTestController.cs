@@ -49,65 +49,65 @@ namespace Api.Tests
         //testes unitários================================================
         // testar o método GET
         //====================================Get(int id) =====================================
-        [Fact]
-        public void GetCategoriaById_Return_OkResult()
-        {
-            //Arrange  
-            var controller = new CategoriasController(repository, mapper);
-            var catId = 2;
+        // [Fact]
+        // public void GetCategoriaById_Return_OkResult()
+        // {
+        //     //Arrange  
+        //     var controller = new CategoriasController(repository, mapper);
+        //     var catId = 2;
 
-            //Act  
-            var data = controller.Get(catId);
-            Console.WriteLine(data);
+        //     //Act  
+        //     var data = controller.Get(catId);
+        //     Console.WriteLine(data);
 
-            //Assert  
-            Assert.IsType<CategoriaDTO>(data.Value);
-        }
+        //     //Assert  
+        //     Assert.IsType<CategoriaDTO>(data.Value);
+        // }
 
-        [Fact]
-        public void GetCategoriaById_Return_NotFoundResult()
-        {
-            //Arrange  
-            var controller = new CategoriasController(repository, mapper);
-            var catId = 9999;
+        // [Fact]
+        // public void GetCategoriaById_Return_NotFoundResult()
+        // {
+        //     //Arrange  
+        //     var controller = new CategoriasController(repository, mapper);
+        //     var catId = 9999;
 
-            //Act  
-            var data = controller.Get(catId);
+        //     //Act  
+        //     var data = controller.Get(catId);
 
-            //Assert  
-            Assert.IsType<NotFoundResult>(data.Result);
-        }
-        [Fact]
-        public void GetCategoriaById_Return_BadRequestResult()
-        {
-            //Arrange  
-            var controller = new CategoriasController(repository, mapper);
-            int? catId = null;
+        //     //Assert  
+        //     Assert.IsType<NotFoundResult>(data.Result);
+        // }
+        // [Fact]
+        // public void GetCategoriaById_Return_BadRequestResult()
+        // {
+        //     //Arrange  
+        //     var controller = new CategoriasController(repository, mapper);
+        //     int? catId = null;
 
-            //Act  
-            var data = controller.Get(catId);
+        //     //Act  
+        //     var data = controller.Get(catId);
 
-            //Assert  
-            Assert.IsType<BadRequestResult>(data.Result);
-        }
+        //     //Assert  
+        //     Assert.IsType<BadRequestResult>(data.Result);
+        // }
 
-        [Fact]
-        public void GetCategoriaById_MatchResult()
-        {
-            //Arrange  
-            var controller = new CategoriasController(repository, mapper);
-            int? catId = 1;
+        // [Fact]
+        // public void GetCategoriaById_MatchResult()
+        // {
+        //     //Arrange  
+        //     var controller = new CategoriasController(repository, mapper);
+        //     int? catId = 1;
 
-            //Act  
-            var data = controller.Get(catId);
+        //     //Act  
+        //     var data = controller.Get(catId);
 
-            //Assert  
-            Assert.IsType<CategoriaDTO>(data.Value);
-            var cat = data.Value.Should().BeAssignableTo<CategoriaDTO>().Subject;
+        //     //Assert  
+        //     Assert.IsType<CategoriaDTO>(data.Value);
+        //     var cat = data.Value.Should().BeAssignableTo<CategoriaDTO>().Subject;
 
-            Assert.Equal("Bebidas alterada", cat.Nome);
-            Assert.Equal("bebidas21.jpg", cat.ImagemUrl);
-        }
+        //     Assert.Equal("Bebidas alterada", cat.Nome);
+        //     Assert.Equal("bebidas21.jpg", cat.ImagemUrl);
+        // }
 
         //===============================================Get=====================================
         [Fact]
@@ -218,53 +218,53 @@ namespace Api.Tests
 
         //===========================================Put =====================================
 
-        [Fact]
-        public void Put_Categoria_Update_ValidData_Return_OkResult()
-        {
-            //Arrange  
-            var controller = new CategoriasController(repository, mapper);
-            var catId = 2;
+        // [Fact]
+        // public void Put_Categoria_Update_ValidData_Return_OkResult()
+        // {
+        //     //Arrange  
+        //     var controller = new CategoriasController(repository, mapper);
+        //     var catId = 2;
 
-            //Act  
-            var existingPost = controller.Get(catId);
-            //var okResult = existingPost.Should().BeOfType<CategoriaDTO>().Subject;
-            var result = existingPost.Value.Should().BeAssignableTo<CategoriaDTO>().Subject;
-            //var result = okResult.Should().BeAssignableTo<CategoriaDTO>().Subject;
+        //     //Act  
+        //     var existingPost = controller.Get(catId);
+        //     //var okResult = existingPost.Should().BeOfType<CategoriaDTO>().Subject;
+        //     var result = existingPost.Value.Should().BeAssignableTo<CategoriaDTO>().Subject;
+        //     //var result = okResult.Should().BeAssignableTo<CategoriaDTO>().Subject;
 
-            var catDto = new CategoriaDTO();
-            catDto.CategoriaId = catId;
-            catDto.Nome = "Categoria Atualizada - Testes 1";
-            catDto.ImagemUrl = result.ImagemUrl;
+        //     var catDto = new CategoriaDTO();
+        //     catDto.CategoriaId = catId;
+        //     catDto.Nome = "Categoria Atualizada - Testes 1";
+        //     catDto.ImagemUrl = result.ImagemUrl;
 
-            var updatedData = controller.Put(catId, catDto);
+        //     var updatedData = controller.Put(catId, catDto);
 
-            //Assert  
-            Assert.IsType<OkResult>(updatedData);
-        }
+        //     //Assert  
+        //     Assert.IsType<OkResult>(updatedData);
+        // }
 
-        [Fact]
-        public void Put_Categoria_Update_InvalidData_Return_BadRequest()
-        {
-            //Arrange  
-            var controller = new CategoriasController(repository, mapper);
-            var catId = 1000;
+        // [Fact]
+        // public void Put_Categoria_Update_InvalidData_Return_BadRequest()
+        // {
+        //     //Arrange  
+        //     var controller = new CategoriasController(repository, mapper);
+        //     var catId = 1000;
 
-            //Act  
-            var existingPost = controller.Get(catId);
-            //var okResult = existingPost.Should().BeOfType<CategoriaDTO>().Subject;
-            var result = existingPost.Value.Should().BeAssignableTo<CategoriaDTO>().Subject;
-            //var result = okResult.Should().BeAssignableTo<CategoriaDTO>().Subject;
+        //     //Act  
+        //     var existingPost = controller.Get(catId);
+        //     //var okResult = existingPost.Should().BeOfType<CategoriaDTO>().Subject;
+        //     var result = existingPost.Value.Should().BeAssignableTo<CategoriaDTO>().Subject;
+        //     //var result = okResult.Should().BeAssignableTo<CategoriaDTO>().Subject;
 
-            var catDto = new CategoriaDTO();
-            catDto.CategoriaId = result.CategoriaId;
-            catDto.Nome = "Categoria Atualizada - Testes 1 com nome muiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiitttttttttttttttttttttttttttttttttooooooooooooooo looooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnngo";
-            catDto.ImagemUrl = result.ImagemUrl;
+        //     var catDto = new CategoriaDTO();
+        //     catDto.CategoriaId = result.CategoriaId;
+        //     catDto.Nome = "Categoria Atualizada - Testes 1 com nome muiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiitttttttttttttttttttttttttttttttttooooooooooooooo looooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnngo";
+        //     catDto.ImagemUrl = result.ImagemUrl;
 
-            var data = controller.Put(catId, catDto);
+        //     var data = controller.Put(catId, catDto);
 
-            //Assert  
-            Assert.IsType<BadRequestResult>(data);
-        }
+        //     //Assert  
+        //     Assert.IsType<BadRequestResult>(data);
+        // }
         //=======================================Delete ===================================
         // [Fact]
         // public void Delete_Categoria_Return_OkResult()

@@ -15,14 +15,16 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Api_Macoratti.Controllers
 {
     [Produces("application/json")]
-    [Authorize(AuthenticationSchemes = "Bearer")] // define esquema de autenticação -> retorna 401 se o usuário nao estiver autenticado
+    // [Authorize(AuthenticationSchemes = "Bearer")] // define esquema de autenticação -> retorna 401 se o usuário nao estiver autenticado
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("PermitirApiRequest")]
+    // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoriasController : ControllerBase
     {
         private readonly IUnitOfWork _uof;
@@ -36,13 +38,19 @@ namespace Api_Macoratti.Controllers
             // _logger = logger;
             _mapper = mapper;
         }
-        // [HttpGet("autora")]
-        // public string GetAutora()
-        // {
-        //     var autora = _configuration["autora"];
-        //     var conexao = _configuration["ConnectionStrings:DefaultConnection"];
-        //     return $"Autora: { autora } Conexao: { conexao }";
-        // }
+        [AllowAnonymous]
+        [HttpGet("teste")]
+        public string GetTeste()
+        {
+            return $"CategoriasController - {DateTime.Now.ToLongDateString().ToString()}";
+        }
+        [HttpGet("autora")]
+        public string GetAutora()
+        {
+            var autora = _configuration["autora"];
+            var conexao = _configuration["ConnectionStrings:DefaultConnection"];
+            return $"Autora: { autora } Conexao: { conexao }";
+        }
         [HttpGet("saudacao/{nome}")]
         public ActionResult<string> GetSaudacao([FromServices] IMeuServico meuServico, string nome)
         {
@@ -51,7 +59,7 @@ namespace Api_Macoratti.Controllers
         [HttpGet("produtos")]
         public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriasProdutos()
         {
-            _logger.LogInformation("============ GET api/categorias/produtos ==============");
+            // _logger.LogInformation("============ GET api/categorias/produtos ==============");
             var categorias = await _uof.CategoriaRepository.GetCategoriasProdutos();
             var categoriasDto = _mapper.Map<List<CategoriaDTO>>(categorias);
 
@@ -109,34 +117,34 @@ namespace Api_Macoratti.Controllers
             }           
         }
 
-        /// <summary>
-        /// Obtem um categoria pelo seu Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Objetos Categoria</returns>
-        [HttpGet("{id}", Name = "ObterCategoria")]
-        [ProducesResponseType(typeof(CategoriaDTO), StatusCodes.Status200OK)] // swagger -> padrão
-        [ProducesResponseType(StatusCodes.Status404NotFound)] // exibe NotFound no swagger
-        public ActionResult<CategoriaDTO> Get(int? id)
-        {
-            // try
-            // {
-                var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
+        // /// <summary>
+        // /// Obtem um categoria pelo seu Id
+        // /// </summary>
+        // /// <param name="id"></param>
+        // /// <returns>Objetos Categoria</returns>
+        // [HttpGet("{id}", Name = "ObterCategoria")]
+        // [ProducesResponseType(typeof(CategoriaDTO), StatusCodes.Status200OK)] // swagger -> padrão
+        // [ProducesResponseType(StatusCodes.Status404NotFound)] // exibe NotFound no swagger
+        // public ActionResult<CategoriaDTO> Get(int? id)
+        // {
+        //     // try
+        //     // {
+        //         var categoria = _uof.CategoriaRepository.GetById(p => p.CategoriaId == id);
 
-                if(categoria == null)
-                {
-                    // return NotFound($"A categoria com id = {id} não foi encontrada");
-                    return NotFound();
-                }
+        //         if(categoria == null)
+        //         {
+        //             // return NotFound($"A categoria com id = {id} não foi encontrada");
+        //             return NotFound();
+        //         }
 
-                var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
-                return categoriaDto;
-            // }
-            // catch(Exception)
-            // {
-            //     return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao tentar obter categorias do banco de dados");
-            // }
-        }
+        //         var categoriaDto = _mapper.Map<CategoriaDTO>(categoria);
+        //         return categoriaDto;
+        //     // }
+        //     // catch(Exception)
+        //     // {
+        //     //     return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao tentar obter categorias do banco de dados");
+        //     // }
+        // }
 
         // exemplo de requisição no remarks
 

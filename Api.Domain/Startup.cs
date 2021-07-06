@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,7 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.AspNet.OData.Extensions;
 
 namespace Api_Macoratti
 {
@@ -46,6 +48,11 @@ namespace Api_Macoratti
                     builder =>
                     builder.WithOrigins("http://apirequest.io")
                     .WithMethods("GET"));
+
+                // para consumir a API
+                opt.AddPolicy("EnableCors", builder => {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
+                });
             });
 
             var mappingConfig = new MapperConfiguration(mc => 
@@ -167,6 +174,11 @@ namespace Api_Macoratti
                 options.SerializerSettings.ReferenceLoopHandling = 
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
             });
+
+            // OData
+            // services.AddOData();
+
+            // services.AddMvc().AddMvcOptions(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -203,6 +215,9 @@ namespace Api_Macoratti
             //     );
             app.UseCors();
 
+            // para consumo da API
+            app.UseCors("EnableCors");
+
             // swagger
             app.UseSwagger();
 
@@ -222,6 +237,13 @@ namespace Api_Macoratti
             app.Run(async (context) => {
                 await context.Response.WriteAsync("Middleware final");
             });
+
+            // OData -> não funciona
+            // app.UseMvc(options => 
+            // {
+            //     options.EnableDependencyInjection();
+            //     options.Expand().Select().Count().OrderBy().Filter();
+            // });
         }
     }
 }

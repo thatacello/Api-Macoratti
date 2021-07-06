@@ -7,11 +7,13 @@ using Api_Macoratti.Models;
 using Api_Macoratti.Pagination;
 using Api_Macoratti.Repository;
 using AutoMapper;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Api_Macoratti.Controllers
 {
+    [EnableQuery] // OData
     [ApiConventionType(typeof(DefaultApiConventions))] // statuscode do swagger é aplicado para todos os métodos do controlador
     [Produces("application/json")] // muda o método de retorno do swagger para 'application/json'
     [Route("api/[controller]")]

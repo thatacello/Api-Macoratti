@@ -25,13 +25,6 @@
             </summary>
             <returns>Lista de Categorias</returns>
         </member>
-        <member name="M:Api_Macoratti.Controllers.CategoriasController.Get(System.Nullable{System.Int32})">
-            <summary>
-            Obtem um categoria pelo seu Id
-            </summary>
-            <param name="id"></param>
-            <returns>Objetos Categoria</returns>
-        </member>
         <member name="M:Api_Macoratti.Controllers.CategoriasController.Post(Api_Macoratti.DTOs.CategoriaDTO)">
              <summary>
              Obtem um categoria pelo seu Id
